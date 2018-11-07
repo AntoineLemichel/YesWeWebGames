@@ -1,5 +1,5 @@
 # Project Name
-Poo JS by Jessy
+
 
 ## Contributing
 1. Fork it!
@@ -10,8 +10,7 @@ Poo JS by Jessy
 
 ## Restriction
 
-We have to create a js script poo for learn how to use it.
 
 ## Creators
 
-Jessy
+
