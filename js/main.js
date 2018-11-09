@@ -48,3 +48,5 @@ function create() {
     game.add.sprite(150, 200, 'chick').anchor.y = 1;
 
 }
+
+createUI();

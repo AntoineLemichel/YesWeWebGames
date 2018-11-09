@@ -1,49 +1,120 @@
-<!doctype html>
-<html class="no-js" lang="fr">
-
+<!DOCTYPE html>
+<html>
 <head>
-  <title></title>
+  <title>Space Invaders</title>
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <link href="/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <link rel="stylesheet" href="css/main.css">
-</head>
 
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+</head>
 <body>
 
+    <script>
 
-
-
-  <script src="phaser/dist/phaser.js"></script>
-  <script src="phaser/dist/phaser.min.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/vendor/modernizr-3.6.0.min.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
-  <script>
-    window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')
-  </script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
-  <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
-
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () {
-      ga.q.push(arguments)
+    var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 200 },
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create
+        }
     };
-    ga.q = [];
-    ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto');
-    ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
-</body>
 
-</html>
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+
+        this.load.setBaseURL('http://localhost/spaceInvaders/');
+
+        this.load.image('background', './background.gif');
+        this.load.image('starship', './startship.png');
+        this.load.image('enemyAttack', './enemyattack.png');
+        this.load.audio('backgroundMusic', './backgroundMusic.mp3');
+        this.load.audio('testMusic', './testMusic.mp3');
+    }
+
+    // var music;
+    function create ()
+    {
+        this.add.image(150, 300, 'background');
+        this.add.image(640, 300, 'background');
+
+        var starship = this.physics.add.image(10, 20, 'starship');
+        var enemyAttack = this.physics.add.image(700, 200, 'enemyAttack');
+
+        starship.setVelocity(100, 200);
+        starship.setBounce(0, 1);
+        starship.setCollideWorldBounds(true);
+        starship.scaleX = 0.2;
+        starship.scaleY = 0.2;
+        enemyAttack.setVelocity(200, 0);
+        enemyAttack.setBounce(1, 1);
+        enemyAttack.setCollideWorldBounds(true);
+
+        this.physics.add.collider(starship, enemyAttack);
+
+
+// TEST MUSIC
+        var music2 = new Phaser.Sound(game, 'testMusic', 1, true);
+        // music = game.sound.play('backgroundMusic');
+        // music2 = game.sound.play('testMusic');
+        music2.play();
+        // music2.onLoop(0.6);
+        // music2.loopFull(0.6);
+
+        // this.sound.setDecodedCallback('testMusic', start, this);
+
+    }
+
+    // function start(){
+    //   music2.shift();
+    //
+    //   music2.loopFull(0.6);
+    //   music2.onLoop.add(hasLooped, this);
+    //
+    //   text.text = 'music';
+    // }
+    </script>
+    
+    <script src="phaser/dist/phaser.js"></script>
+      <script src="phaser/dist/phaser.min.js"></script>
+      <script src="js/vendor/modernizr-3.6.0.min.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+      <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')
+      </script>
+      <script src="js/plugins.js"></script>
+      <script src="js/main.js"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+      <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+      <!-- <script src="bootstrap/js/bootstrap.min.js"></script> -->
+
+      <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+      <script>
+        window.ga = function () {
+          ga.q.push(arguments)
+        };
+        ga.q = [];
+        ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview')
+      </script>
+      <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+    </body>
+
+    </html>
