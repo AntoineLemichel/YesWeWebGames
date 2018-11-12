@@ -21,5 +21,5 @@ module.exports = {
     JustUp: require('./keys/JustUp'),
     DownDuration: require('./keys/DownDuration'),
     UpDuration: require('./keys/UpDuration')
-    
+
 };
